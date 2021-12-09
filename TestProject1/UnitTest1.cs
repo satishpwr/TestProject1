@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -22,7 +23,9 @@ namespace TestProject1
         {
             new DriverManager().SetUpDriver(new ChromeConfig());
             _webDriver = new ChromeDriver();
-            _webDriver.Manage().Window.Maximize();
+            //_webDriver.Manage().Window.Maximize();
+            _webDriver.Manage().Window.Position = new Point(900,0); //100; (new Point(100, 200));
+            _webDriver.Manage().Window.Size = new Size(1024, 1000);
             _webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             
         }
