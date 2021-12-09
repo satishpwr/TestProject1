@@ -29,7 +29,7 @@
         });
         $('#Submit').on('click', function () {
             $.ajax({
-                url: "/Employee/AddEmployee",
+                url: "../Employee/AddEmployee",
                 type: "post",
                 data: {
                     EmpId: 0,
@@ -39,7 +39,7 @@
                 success: function (data) {
 
                     alert(data.message);
-                    location.href = "/Employee/GetEmployees";
+                    location.href = "../Employee/GetEmployees";
                     }
                 })
 

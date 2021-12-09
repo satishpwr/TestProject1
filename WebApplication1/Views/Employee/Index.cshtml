@@ -43,12 +43,12 @@
             });
             console.log(idList);
             $.ajax({
-                url: "/Employee/DeleteEmployee",
+                url: "../Employee/DeleteEmployee",
                 type: "post",
                 data: { empIds: idList },
                 traditional: true
             }).then(function () {
-                location.href = "/Employee/GetEmployees";
+                location.href = "../Employee/GetEmployees";
             });
         });
         //Enable or disable the delete button
