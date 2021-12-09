@@ -23,7 +23,7 @@ namespace WebApplication1.Models
                 List<Employee> empList = new List<Employee>();
                 empList.Add(new Employee() { EmpId = 1, Name = "Anderson", Salary = 2000 });
                 empList.Add(new Employee() { EmpId = 2, Name = "Johnson", Salary = 3000 });
-                empList.Add(new Employee() { EmpId = 3, Name = "Jackson", Salary = 4000 });
+                empList.Add(new Employee() { EmpId = 3, Name = "Walter", Salary = 4000 });
                 EmployeeList = empList;
             }
             return EmployeeList;
