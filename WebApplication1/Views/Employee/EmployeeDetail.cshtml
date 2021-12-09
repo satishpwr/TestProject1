@@ -31,7 +31,7 @@
         });
         $('#Submit').on('click', function () {
             $.ajax({
-                url: "../Employee/SetEmployee",
+                  url: "../../Employee/SetEmployee",
                 type: "post",
                 data: {
                     EmpId: $('#EmpId').val(),
@@ -40,7 +40,7 @@
                 }
             }).then(function () {
                 alert('Employee saved successfully');
-                location.href = "../Employee/GetEmployees";
+                location.href = "../../Employee/GetEmployees";
             });
         });
     });
