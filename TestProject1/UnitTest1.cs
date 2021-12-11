@@ -181,7 +181,10 @@ namespace TestProject1
             Thread.Sleep(3000);
             delBtn.Click(); //Perfome delete operation
 
-
+            IAlert alert = null;
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait.Until((d) => { alert = d.SwitchTo().Alert(); return alert; });
+            alert.Accept();
         }
 
 
