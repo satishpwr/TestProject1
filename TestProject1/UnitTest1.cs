@@ -49,13 +49,13 @@ namespace TestProject1
             TestEmployeeListScreen(_webDriver, "Launch");
             Thread.Sleep(7000);
 
-            //TestAddEmployeeNew(_webDriver);
-            //TestEmployeeListScreen(_webDriver, "Add");
-            //Thread.Sleep(3000);
+            TestAddEmployeeNew(_webDriver);
+            TestEmployeeListScreen(_webDriver, "Add");
+            Thread.Sleep(3000);
 
-            //TestEditEmployee(_webDriver);
-            //TestEmployeeListScreen(_webDriver, "Add");
-            //Thread.Sleep(3000);
+            TestEditEmployee(_webDriver);
+            TestEmployeeListScreen(_webDriver, "Add");
+            Thread.Sleep(3000);
 
             TestDeleteEmployees(_webDriver);
             TestEmployeeListScreen(_webDriver, "Add");
