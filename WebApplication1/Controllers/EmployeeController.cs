@@ -58,7 +58,7 @@ namespace WebApplication1.Controllers
                 });
                 return Json(new { error = true, message = "Employee saved successfully" });
             }
-
+            //noidea
             return View("EmployeeDetail", emp);
         }
 
