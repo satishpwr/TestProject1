@@ -23,25 +23,24 @@ pipeline {
 					}
 				}
 				
-				stage('DEPLOY') {
+				stage('DEV DEPLOY') {
     					steps {
 						echo "Deploying the project"
-					          bat "\"${tool '2019'}\" TestProject1.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:SkipInvalidConfigurations=true /t:build /p:Configuration=Release /p:Platform=\"Any CPU\" /p:DeleteExistingFiles=True /p:publishUrl=c:\\inetpub\\wwwroot\\TestProject1"
+					          bat "\"${tool '2019'}\" TestProject1.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:SkipInvalidConfigurations=true /t:build /p:Configuration=Release /p:Platform=\"Any CPU\" /p:DeleteExistingFiles=True /p:publishUrl=c:\\inetpub\\wwwroot\\TestProject11"
 					}
 				}
-				//stage ('push artifact') {
-                    //steps {
+				stage ('BACKUPS') {
+                    steps {
                         
-                        //zip dir: 'C:\\inetpub\\wwwroot\\TestProject1', exclude: '', glob: '', overwrite: true, zipFile: 'TestZIP.zip'
-                        
-                        //bat '''@ECHO OFF
-                        //set Source_Folder=C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\BuilTestDeploy\\TestZIP.zip
-                        //set Dest_Folder=C:\\backup\\1
-                        //set FileName= BCKP 
-                        
-                        //copy %Source_Folder%\\*%FileName%* %Dest_Folder%\\.'''			
-                    //}
-                //}
+                       
+                        powershell '''$source = "C:\\inetpub\\wwwroot\\TestProject11"
+                        $BuildNo = ${env:BUILD_NUMBER}
+                        $destination = "C:\\inetpub\\backup\\TestProject11_$BuildNo.zip"
+                        if(Test-path $destination) {Remove-item $destination}
+                        Add-Type -assembly "system.io.compression.filesystem"
+                        [io.compression.zipfile]::CreateFromDirectory($source, $destination)'''
+                    }
+                }
 				
 				stage('TEST') {
 				        agent { label 'Dummy' } 
@@ -50,12 +49,18 @@ pipeline {
 					            bat '"C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" C:\\Users\\pc2\\source\\repos\\TestProject1\\TestProject1\\bin\\Debug\\net472\\TestProject1.dll'
 					}
 				}
-				stage('RELEASE') {
+                
+				stage('QA RELEASE') {
 				        
-    					steps {
-						echo "Auto Test"
-					           // bat '"C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe" C:\\Users\\pc2\\source\\repos\\TestProject1\\TestProject1\\bin\\Debug\\net472\\TestProject1.dll'
-					}
+				        input {
+                            message "Ready to deploy?"
+                            ok "Approve"
+                        }
+				        
+        				steps {
+    						echo "Release"
+    					    bat "\"${tool '2019'}\" TestProject1.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:SkipInvalidConfigurations=true /t:build /p:Configuration=Release /p:Platform=\"Any CPU\" /p:DeleteExistingFiles=True /p:publishUrl=c:\\inetpub\\wwwroot\\TestProject1"
+    					}
 				}
 				
 			}
