@@ -40,7 +40,8 @@ namespace TestProject1
         public void Test1()
         {
             //_webDriver.Navigate().GoToUrl("http://localhost:60005/");//44310
-            _webDriver.Navigate().GoToUrl("http://localhost/TestProject1/");//44310
+            //_webDriver.Navigate().GoToUrl("http://localhost/TestProject1/");//44310
+            _webDriver.Navigate().GoToUrl("http://localhost:8081/");//44310
             Thread.Sleep(3000);
             IWebElement enter = _webDriver.FindElement(By.TagName("a"));
             enter.Click();
